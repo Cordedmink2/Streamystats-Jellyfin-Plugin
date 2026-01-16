@@ -34,6 +34,16 @@ jobs:
           VERSION="${{ github.event.release.tag_name }}"
           scripts/package_release.sh "$VERSION"
 
+      - name: Remove existing release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ github.event.release.tag_name }}"
+          ZIP_NAME="Streamystats-${VERSION}.zip"
+          gh release view "$VERSION" --json assets --jq ".assets[] | select(.name==\"manifest.json\" or .name==\"$ZIP_NAME\") | .id" | while read -r ASSET_ID; do
+            gh release delete-asset "$VERSION" "$ASSET_ID" -y
+          done
+
       - name: Update manifest
         run: |
           VERSION="${{ github.event.release.tag_name }}"
