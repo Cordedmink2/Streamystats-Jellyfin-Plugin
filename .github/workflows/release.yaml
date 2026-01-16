@@ -35,6 +35,7 @@ jobs:
           scripts/package_release.sh "$VERSION"
 
       - name: Remove existing release assets
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
