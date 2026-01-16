@@ -49,20 +49,6 @@ public sealed class StreamystatsServerIdResolver
 
         try
         {
-            var config = _configurationManager.GetConfiguration("system/public");
-            if (config is PublicSystemInfo publicInfo && !string.IsNullOrWhiteSpace(publicInfo.Id))
-            {
-                _cachedServerId = publicInfo.Id;
-                return publicInfo.Id;
-            }
-        }
-        catch (Exception ex)
-        {
-            _logger.LogWarning(ex, "Failed to read public server id from configuration.");
-        }
-
-        try
-        {
             var port = 8096;
             if (_configurationManager.GetConfiguration("network") is NetworkConfiguration networkConfig &&
                 networkConfig.InternalHttpPort > 0)
@@ -83,6 +69,20 @@ public sealed class StreamystatsServerIdResolver
         catch (Exception ex)
         {
             _logger.LogWarning(ex, "Failed to read public server id from local API.");
+        }
+
+        try
+        {
+            var config = _configurationManager.GetConfiguration("system/public");
+            if (config is PublicSystemInfo publicInfo && !string.IsNullOrWhiteSpace(publicInfo.Id))
+            {
+                _cachedServerId = publicInfo.Id;
+                return publicInfo.Id;
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Failed to read public server id from configuration.");
         }
 
         return string.Empty;
