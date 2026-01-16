@@ -1,0 +1,1 @@
+# Streamystats-Jellyfin-Plugin
