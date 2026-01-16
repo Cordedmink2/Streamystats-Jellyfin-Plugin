@@ -1,39 +1,20 @@
-{
-  "version": 1,
-  "plugins": [
-    {
-      "category": "General",
-      "description": "Integrates Streamystats with Jellyfin Web UI to show recommendations and promoted watchlists.",
-      "guid": "c9893499-ca27-4313-89ab-7e2a67e3e5ae",
-      "name": "Streamystats",
-      "overview": "Streamystats recommendations and promoted watchlists in Jellyfin.",
-      "owner": "Cordedmink2",
-      "versions": [
-        {
-          "checksum": "94795263c068ac3324efa051b33a3ddc066e6f40bca75d72a17634cc9fa3fede",
-          "changelog": "Release 0.1.0.5",
-          "targetAbi": "10.11.5.0",
-          "sourceUrl": "https://github.com/Cordedmink2/Streamystats-Jellyfin-Plugin/releases/download/0.1.0.5/Streamystats-0.1.0.5.zip",
-          "timestamp": "2026-01-16T12:26:08Z",
-          "version": "0.1.0.5"
-        },
-        {
-          "checksum": "31864c61b10bae3638127d777b272e0b39234cb09fbe4da423681107e1300b09",
-          "changelog": "Release 0.1.0.4",
-          "targetAbi": "10.11.5.0",
-          "sourceUrl": "https://github.com/Cordedmink2/Streamystats-Jellyfin-Plugin/releases/download/0.1.0.4/Streamystats-0.1.0.4.zip",
-          "timestamp": "2026-01-16T11:58:16Z",
-          "version": "0.1.0.4"
-        },
-        {
-          "checksum": "ea29f7f3d18b8674ab441162a8db90bf4ae47ab92f183ec1fb822b7e846fcacb",
-          "changelog": "Release 0.1.0.3",
-          "targetAbi": "10.11.5.0",
-          "sourceUrl": "https://github.com/Cordedmink2/Streamystats-Jellyfin-Plugin/releases/download/0.1.0.3/Streamystats-0.1.0.3.zip",
-          "timestamp": "2026-01-16T11:24:05Z",
-          "version": "0.1.0.3"
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "category": "General",
+    "description": "Integrates Streamystats with Jellyfin Web UI to show recommendations and promoted watchlists.",
+    "guid": "c9893499-ca27-4313-89ab-7e2a67e3e5ae",
+    "name": "Streamystats",
+    "overview": "Streamystats recommendations and promoted watchlists in Jellyfin.",
+    "owner": "Cordedmink2",
+    "versions": [
+      {
+        "checksum": "ea29f7f3d18b8674ab441162a8db90bf4ae47ab92f183ec1fb822b7e846fcacb",
+        "changelog": "Release 0.1.0.3",
+        "targetAbi": "10.11.5.0",
+        "sourceUrl": "https://github.com/Cordedmink2/Streamystats-Jellyfin-Plugin/releases/download/0.1.0.3/Streamystats-0.1.0.3.zip",
+        "timestamp": "2026-01-16T11:24:05Z",
+        "version": "0.1.0.3"
+      }
+    ]
+  }
+]
