@@ -7,6 +7,14 @@
     "overview": "Streamystats recommendations and promoted watchlists in Jellyfin.",
     "owner": "Cordedmink2",
     "versions": [
+      {
+        "checksum": "58850b4e1615b402e417fe36c134ab42",
+        "changelog": "Release 0.1.0.8",
+        "targetAbi": "10.11.5.0",
+        "sourceUrl": "https://github.com/Cordedmink2/Streamystats-Jellyfin-Plugin/releases/download/0.1.0.8/Streamystats-0.1.0.8.zip",
+        "timestamp": "2026-01-16T14:19:49Z",
+        "version": "0.1.0.8"
+      }
     ]
   }
 ]
