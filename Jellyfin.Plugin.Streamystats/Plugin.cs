@@ -19,9 +19,13 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
     /// </summary>
     /// <param name="applicationPaths">Instance of the <see cref="IApplicationPaths"/> interface.</param>
     /// <param name="xmlSerializer">Instance of the <see cref="IXmlSerializer"/> interface.</param>
-    public Plugin(IApplicationPaths applicationPaths, IXmlSerializer xmlSerializer)
+    public Plugin(
+        IApplicationPaths applicationPaths,
+        IXmlSerializer xmlSerializer,
+        MediaBrowser.Controller.Configuration.IServerConfigurationManager serverConfigurationManager)
         : base(applicationPaths, xmlSerializer)
     {
+        ServerConfigurationManager = serverConfigurationManager;
         Instance = this;
     }
 
@@ -36,6 +40,11 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
     /// </summary>
     public static Plugin? Instance { get; private set; }
 
+    /// <summary>
+    /// Gets the server configuration manager.
+    /// </summary>
+    public MediaBrowser.Controller.Configuration.IServerConfigurationManager ServerConfigurationManager { get; }
+
     /// <inheritdoc />
     public IEnumerable<PluginPageInfo> GetPages()
     {
@@ -48,12 +57,12 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
             },
             new PluginPageInfo
             {
-                Name = "streamystats",
+                Name = "streamystats.js",
                 EmbeddedResourcePath = string.Format(CultureInfo.InvariantCulture, "{0}.Configuration.streamystats.js", GetType().Namespace)
             },
             new PluginPageInfo
             {
-                Name = "streamystats",
+                Name = "streamystats.css",
                 EmbeddedResourcePath = string.Format(CultureInfo.InvariantCulture, "{0}.Configuration.streamystats.css", GetType().Namespace)
             }
         ];
