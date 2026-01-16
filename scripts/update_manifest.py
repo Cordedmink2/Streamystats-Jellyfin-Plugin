@@ -39,7 +39,15 @@ def main() -> None:
     checksum = sha256sum(artifact_path)
     source_url = f"https://github.com/{OWNER}/{REPO}/releases/download/{version}/{zip_name}"
 
-    versions = manifest.get("versions", [])
+    if manifest.get("version") != 1 or "plugins" not in manifest:
+        raise ValueError("manifest.json must be the Jellyfin plugin repository format")
+
+    plugins = manifest.get("plugins", [])
+    if not plugins:
+        raise ValueError("manifest.json must include at least one plugin")
+
+    plugin = plugins[0]
+    versions = plugin.get("versions", [])
     versions.insert(
         0,
         {
@@ -52,7 +60,8 @@ def main() -> None:
         },
     )
 
-    manifest["versions"] = versions
+    plugin["versions"] = versions
+    manifest["plugins"] = plugins
 
     with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2)
