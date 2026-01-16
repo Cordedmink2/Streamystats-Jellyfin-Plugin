@@ -1,0 +1,39 @@
+version: '3.9'
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:10.11.5
+    container_name: jellyfin_streamystats_test
+    environment:
+      - TZ=UTC
+    ports:
+      - "8096:8096"
+    volumes:
+      - ./tmp/jellyfin/config:/config
+      - ./tmp/jellyfin/cache:/cache
+      - ./tmp/jellyfin/media:/media
+
+  streamystats:
+    image: ghcr.io/fredrikburmester/streamystats:latest
+    container_name: streamystats_test
+    depends_on:
+      - jellyfin
+    environment:
+      - STREAMYSTATS_JELLYFIN_URL=http://jellyfin:8096
+      - STREAMYSTATS_PUBLIC_URL=http://streamystats:3000
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/streamystats
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./tmp/streamystats/data:/data
+
+  postgres:
+    image: postgres:16
+    container_name: streamystats_postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=streamystats
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./tmp/postgres:/var/lib/postgresql/data

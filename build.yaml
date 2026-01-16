@@ -1,0 +1,16 @@
+---
+name: "Streamystats"
+guid: "c9893499-ca27-4313-89ab-7e2a67e3e5ae"
+version: "0.1.0.0"
+targetAbi: "10.11.5.0"
+framework: "net8.0"
+overview: "Streamystats recommendations and promoted watchlists in Jellyfin."
+description: >
+  Integrates Streamystats with Jellyfin Web UI to show movie/series recommendations
+  and promoted watchlists based on your watch history.
+category: "General"
+owner: "streamystats"
+artifacts:
+- "Jellyfin.Plugin.Streamystats.dll"
+changelog: >
+  Initial Streamystats integration for Jellyfin Web UI.

@@ -1,0 +1,49 @@
+name: '📦 Release Plugin'
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore
+        run: dotnet restore Jellyfin.Plugin.Streamystats.sln
+
+      - name: Build
+        run: dotnet build Jellyfin.Plugin.Streamystats.sln --configuration Release
+
+      - name: Package
+        run: |
+          VERSION="${{ github.event.release.tag_name }}"
+          scripts/package_release.sh "$VERSION"
+
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/Streamystats-${{ github.event.release.tag_name }}.zip
+
+      - name: Update manifest
+        run: |
+          VERSION="${{ github.event.release.tag_name }}"
+          TIMESTAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          python3 scripts/update_manifest.py "$VERSION" "$TIMESTAMP"
+
+      - name: Upload manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifest
+          path: manifest.json

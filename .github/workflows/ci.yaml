@@ -1,0 +1,30 @@
+name: '🧪 CI'
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore
+        run: dotnet restore Jellyfin.Plugin.Streamystats.sln
+
+      - name: Build
+        run: dotnet build Jellyfin.Plugin.Streamystats.sln --configuration Release
+
+      - name: Test
+        run: dotnet test Jellyfin.Plugin.Streamystats.sln --configuration Release
