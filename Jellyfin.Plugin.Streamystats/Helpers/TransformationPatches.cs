@@ -1,5 +1,6 @@
 using System;
 using Jellyfin.Plugin.Streamystats.Model;
+using MediaBrowser.Common.Net;
 
 namespace Jellyfin.Plugin.Streamystats.Helpers;
 
@@ -28,9 +29,9 @@ public static class TransformationPatches
         }
 
         var rootPath = string.Empty;
-        var configManager = Plugin.Instance?.ServerConfigurationManager;
-        var networkConfig = configManager?.GetNetworkConfiguration();
-        if (!string.IsNullOrWhiteSpace(networkConfig?.BaseUrl))
+        var configManager = Plugin.Instance?.ConfigurationManager;
+        if (configManager?.GetConfiguration("network") is NetworkConfiguration networkConfig &&
+            !string.IsNullOrWhiteSpace(networkConfig.BaseUrl))
         {
             rootPath = "/" + networkConfig.BaseUrl.Trim('/');
         }

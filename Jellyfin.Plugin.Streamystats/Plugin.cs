@@ -19,13 +19,14 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
     /// </summary>
     /// <param name="applicationPaths">Instance of the <see cref="IApplicationPaths"/> interface.</param>
     /// <param name="xmlSerializer">Instance of the <see cref="IXmlSerializer"/> interface.</param>
+    /// <param name="configurationManager">Configuration manager.</param>
     public Plugin(
         IApplicationPaths applicationPaths,
         IXmlSerializer xmlSerializer,
-        MediaBrowser.Controller.Configuration.IServerConfigurationManager serverConfigurationManager)
+        IConfigurationManager configurationManager)
         : base(applicationPaths, xmlSerializer)
     {
-        ServerConfigurationManager = serverConfigurationManager;
+        ConfigurationManager = configurationManager;
         Instance = this;
     }
 
@@ -41,9 +42,9 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
     public static Plugin? Instance { get; private set; }
 
     /// <summary>
-    /// Gets the server configuration manager.
+    /// Gets the configuration manager.
     /// </summary>
-    public MediaBrowser.Controller.Configuration.IServerConfigurationManager ServerConfigurationManager { get; }
+    public IConfigurationManager ConfigurationManager { get; }
 
     /// <inheritdoc />
     public IEnumerable<PluginPageInfo> GetPages()
