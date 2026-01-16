@@ -24,14 +24,6 @@
           "sourceUrl": "https://github.com/Cordedmink2/Streamystats-Jellyfin-Plugin/releases/download/0.1.0.3/Streamystats-0.1.0.3.zip",
           "timestamp": "2026-01-16T11:24:05Z",
           "version": "0.1.0.3"
-        },
-        {
-          "checksum": "",
-          "changelog": "Initial Streamystats integration for Jellyfin Web UI.",
-          "targetAbi": "10.11.5.0",
-          "sourceUrl": "",
-          "timestamp": "",
-          "version": "0.1.0.0"
         }
       ]
     }

@@ -48,7 +48,14 @@ def main() -> None:
 
     plugin = plugins[0]
     versions = plugin.get("versions", [])
-    versions.insert(
+
+    cleaned = []
+    for v in versions:
+        if not v.get("timestamp") or not v.get("sourceUrl") or not v.get("checksum"):
+            continue
+        cleaned.append(v)
+
+    cleaned.insert(
         0,
         {
             "checksum": checksum,
@@ -60,7 +67,7 @@ def main() -> None:
         },
     )
 
-    plugin["versions"] = versions
+    plugin["versions"] = cleaned
     manifest["plugins"] = plugins
 
     with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
