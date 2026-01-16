@@ -10,6 +10,14 @@
       "owner": "Cordedmink2",
       "versions": [
         {
+          "checksum": "31864c61b10bae3638127d777b272e0b39234cb09fbe4da423681107e1300b09",
+          "changelog": "Release 0.1.0.4",
+          "targetAbi": "10.11.5.0",
+          "sourceUrl": "https://github.com/Cordedmink2/Streamystats-Jellyfin-Plugin/releases/download/0.1.0.4/Streamystats-0.1.0.4.zip",
+          "timestamp": "2026-01-16T11:58:16Z",
+          "version": "0.1.0.4"
+        },
+        {
           "checksum": "ea29f7f3d18b8674ab441162a8db90bf4ae47ab92f183ec1fb822b7e846fcacb",
           "changelog": "Release 0.1.0.3",
           "targetAbi": "10.11.5.0",
