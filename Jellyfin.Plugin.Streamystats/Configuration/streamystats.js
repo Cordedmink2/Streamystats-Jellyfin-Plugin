@@ -184,6 +184,56 @@
         }
     }
 
+    function normalizeItems(result) {
+        return result && result.Items ? result.Items : [];
+    }
+
+    function normalizeWatchlists(result) {
+        return result && result.data ? result.data : [];
+    }
+
+    function normalizeSectionOrder(orderValue, enabledSections) {
+        var defaultOrder = ['movies', 'series', 'watchlists'];
+        var normalized = [];
+
+        if (orderValue) {
+            orderValue.split(',').forEach(function (entry) {
+                var key = entry.trim().toLowerCase();
+                if (!key) {
+                    return;
+                }
+
+                if (key === 'movie' || key === 'movies') {
+                    key = 'movies';
+                } else if (key === 'series' || key === 'shows' || key === 'tv') {
+                    key = 'series';
+                } else if (key === 'watchlists' || key === 'watchlist') {
+                    key = 'watchlists';
+                } else {
+                    return;
+                }
+
+                if (normalized.indexOf(key) === -1) {
+                    normalized.push(key);
+                }
+            });
+        }
+
+        if (!normalized.length) {
+            normalized = defaultOrder.slice();
+        }
+
+        defaultOrder.forEach(function (key) {
+            if (normalized.indexOf(key) === -1) {
+                normalized.push(key);
+            }
+        });
+
+        return normalized.filter(function (key) {
+            return enabledSections.indexOf(key) !== -1;
+        });
+    }
+
     function init() {
         getConfig()
             .then(function (config) {
@@ -204,37 +254,66 @@
 
                 var loading = setLoading(wrapper);
 
+                var enabledSections = [];
+                if (config.StreamystatsMovieRecommendations) {
+                    enabledSections.push('movies');
+                }
+                if (config.StreamystatsSeriesRecommendations) {
+                    enabledSections.push('series');
+                }
+                if (config.StreamystatsPromotedWatchlists) {
+                    enabledSections.push('watchlists');
+                }
+
+                if (!enabledSections.length) {
+                    clearLoading(loading);
+                    return;
+                }
+
+                var sectionOrder = normalizeSectionOrder(config.StreamystatsSectionOrder, enabledSections);
+                var sectionRequests = {};
                 var tasks = [];
 
-                if (config.StreamystatsMovieRecommendations) {
+                if (enabledSections.indexOf('movies') !== -1) {
                     tasks.push(getRecommendations('Movies').then(function (result) {
-                        renderRecommendations(
-                            wrapper,
-                            'Recommended Movies',
-                            result && result.Items ? result.Items : [],
-                            'No movie recommendations yet.'
-                        );
+                        sectionRequests.movies = normalizeItems(result);
                     }));
                 }
 
-                if (config.StreamystatsSeriesRecommendations) {
+                if (enabledSections.indexOf('series') !== -1) {
                     tasks.push(getRecommendations('Series').then(function (result) {
-                        renderRecommendations(
-                            wrapper,
-                            'Recommended Series',
-                            result && result.Items ? result.Items : [],
-                            'No series recommendations yet.'
-                        );
+                        sectionRequests.series = normalizeItems(result);
                     }));
                 }
 
-                if (config.StreamystatsPromotedWatchlists) {
+                if (enabledSections.indexOf('watchlists') !== -1) {
                     tasks.push(getPromotedWatchlists().then(function (result) {
-                        renderWatchlists(wrapper, result);
+                        sectionRequests.watchlists = normalizeWatchlists(result);
                     }));
                 }
 
-                return Promise.all(tasks)
+                return Promise.allSettled(tasks)
+                    .then(function () {
+                        sectionOrder.forEach(function (sectionKey) {
+                            if (sectionKey === 'movies') {
+                                renderRecommendations(
+                                    wrapper,
+                                    'Recommended Movies',
+                                    sectionRequests.movies || [],
+                                    'No movie recommendations yet.'
+                                );
+                            } else if (sectionKey === 'series') {
+                                renderRecommendations(
+                                    wrapper,
+                                    'Recommended Series',
+                                    sectionRequests.series || [],
+                                    'No series recommendations yet.'
+                                );
+                            } else if (sectionKey === 'watchlists') {
+                                renderWatchlists(wrapper, { data: sectionRequests.watchlists || [] });
+                            }
+                        });
+                    })
                     .catch(function () {
                         var error = document.createElement('div');
                         error.className = 'streamystats-error';

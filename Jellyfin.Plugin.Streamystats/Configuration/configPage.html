@@ -41,6 +41,11 @@
                         </label>
                         <div class="fieldDescription">Allow Streamystats to promote watchlists on the home screen.</div>
                     </div>
+                    <div class="inputContainer">
+                        <label class="inputLabel inputLabelUnfocused" for="StreamystatsSectionOrder">Section order</label>
+                        <input id="StreamystatsSectionOrder" name="StreamystatsSectionOrder" type="text" is="emby-input" />
+                        <div class="fieldDescription">Comma-separated order of sections: Movies, Series, Watchlists.</div>
+                    </div>
                     <div>
                         <button is="emby-button" type="submit" class="raised button-submit block emby-button">
                             <span>Save</span>
@@ -63,6 +68,7 @@
                         document.querySelector('#StreamystatsMovieRecommendations').checked = !!config.StreamystatsMovieRecommendations;
                         document.querySelector('#StreamystatsSeriesRecommendations').checked = !!config.StreamystatsSeriesRecommendations;
                         document.querySelector('#StreamystatsPromotedWatchlists').checked = !!config.StreamystatsPromotedWatchlists;
+                        document.querySelector('#StreamystatsSectionOrder').value = config.StreamystatsSectionOrder || '';
                         Dashboard.hideLoadingMsg();
                     });
                 });
@@ -76,6 +82,7 @@
                         config.StreamystatsMovieRecommendations = document.querySelector('#StreamystatsMovieRecommendations').checked;
                         config.StreamystatsSeriesRecommendations = document.querySelector('#StreamystatsSeriesRecommendations').checked;
                         config.StreamystatsPromotedWatchlists = document.querySelector('#StreamystatsPromotedWatchlists').checked;
+                        config.StreamystatsSectionOrder = document.querySelector('#StreamystatsSectionOrder').value;
                         ApiClient.updatePluginConfiguration(StreamystatsConfig.pluginUniqueId, config).then(function (result) {
                             Dashboard.processPluginConfigurationUpdateResult(result);
                         });

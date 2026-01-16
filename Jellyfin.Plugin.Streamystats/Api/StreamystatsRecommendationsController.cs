@@ -10,6 +10,7 @@ using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Model.Dto;
 using MediaBrowser.Model.Querying;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -20,6 +21,7 @@ namespace Jellyfin.Plugin.Streamystats.Api;
 /// </summary>
 [ApiController]
 [Route("Streamystats")]
+[Authorize]
 public class StreamystatsRecommendationsController : ControllerBase
 {
     private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web);
@@ -118,7 +120,7 @@ public class StreamystatsRecommendationsController : ControllerBase
         }
 
         var url = $"{baseUrl}/api/recommendations?jellyfinServerId={Uri.EscapeDataString(serverId)}&type={Uri.EscapeDataString(type)}&format=ids";
-        var token = HttpContext?.Request?.Headers["X-Emby-Token"].ToString();
+        var token = StreamystatsAuthToken.GetToken(HttpContext?.Request?.Headers);
         var json = await httpClient.GetAsync(url, token, cancellationToken).ConfigureAwait(false);
         if (string.IsNullOrWhiteSpace(json))
         {

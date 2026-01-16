@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Jellyfin.Plugin.Streamystats.Configuration;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -13,6 +14,7 @@ namespace Jellyfin.Plugin.Streamystats.Api;
 /// </summary>
 [ApiController]
 [Route("Streamystats")]
+[Authorize]
 public class StreamystatsProxyController : ControllerBase
 {
     private readonly ILogger<StreamystatsProxyController> _logger;
@@ -65,7 +67,7 @@ public class StreamystatsProxyController : ControllerBase
         }
 
         var url = $"{baseUrl}/api/watchlists/promoted?jellyfinServerId={Uri.EscapeDataString(serverId)}&format=full";
-        var token = HttpContext?.Request?.Headers["X-Emby-Token"].ToString();
+        var token = StreamystatsAuthToken.GetToken(HttpContext?.Request?.Headers);
         var json = await httpClient.GetAsync(url, token, cancellationToken).ConfigureAwait(false);
         if (string.IsNullOrWhiteSpace(json))
         {
