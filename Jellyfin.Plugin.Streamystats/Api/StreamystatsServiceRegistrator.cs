@@ -12,6 +12,7 @@ public sealed class StreamystatsServiceRegistrator : IPluginServiceRegistrator
     /// <inheritdoc />
     public void RegisterServices(IServiceCollection serviceCollection, IServerApplicationHost applicationHost)
     {
+        serviceCollection.AddHttpClient();
         serviceCollection.AddSingleton<StreamystatsServerIdResolver>();
         serviceCollection.AddSingleton<StreamystatsHttpClient>();
     }

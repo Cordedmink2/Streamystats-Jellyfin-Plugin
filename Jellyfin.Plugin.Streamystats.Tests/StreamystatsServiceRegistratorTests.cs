@@ -13,6 +13,7 @@ public class StreamystatsServiceRegistratorTests
     {
         var services = new ServiceCollection();
         services.AddSingleton(Substitute.For<IConfigurationManager>());
+        services.AddLogging();
         var registrator = new StreamystatsServiceRegistrator();
         var host = Substitute.For<IServerApplicationHost>();
 
