@@ -9,12 +9,12 @@ OWNER = "Cordedmink2"
 REPO = "Streamystats-Jellyfin-Plugin"
 
 
-def sha256sum(path: str) -> str:
-    sha = hashlib.sha256()
+def md5sum(path: str) -> str:
+    md5 = hashlib.md5()
     with open(path, "rb") as f:
         for chunk in iter(lambda: f.read(8192), b""):
-            sha.update(chunk)
-    return sha.hexdigest()
+            md5.update(chunk)
+    return md5.hexdigest()
 
 
 def main() -> None:
@@ -39,7 +39,7 @@ def main() -> None:
     if not isinstance(manifest, list) or not manifest:
         raise ValueError("manifest.json must be a non-empty list of plugins")
 
-    checksum = sha256sum(artifact_path)
+    checksum = md5sum(artifact_path)
     source_url = f"https://github.com/{OWNER}/{REPO}/releases/download/{version}/{zip_name}"
 
     plugin = manifest[0]

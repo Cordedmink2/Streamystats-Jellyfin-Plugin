@@ -8,7 +8,7 @@
     "owner": "Cordedmink2",
     "versions": [
       {
-        "checksum": "5baa119359488b8119748b531f72c0b74dbfaa2da84e328f9d208d1ade8e072f",
+        "checksum": "2528086fa6e30d52e401cc4e72789583",
         "changelog": "Release 0.1.0.6",
         "targetAbi": "10.11.5.0",
         "sourceUrl": "https://github.com/Cordedmink2/Streamystats-Jellyfin-Plugin/releases/download/0.1.0.6/Streamystats-0.1.0.6.zip",
