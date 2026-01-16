@@ -36,17 +36,13 @@ def main() -> None:
     with open(MANIFEST_PATH, "r", encoding="utf-8") as f:
         manifest = json.load(f)
 
+    if not isinstance(manifest, list) or not manifest:
+        raise ValueError("manifest.json must be a non-empty list of plugins")
+
     checksum = sha256sum(artifact_path)
     source_url = f"https://github.com/{OWNER}/{REPO}/releases/download/{version}/{zip_name}"
 
-    if manifest.get("version") != 1 or "plugins" not in manifest:
-        raise ValueError("manifest.json must be the Jellyfin plugin repository format")
-
-    plugins = manifest.get("plugins", [])
-    if not plugins:
-        raise ValueError("manifest.json must include at least one plugin")
-
-    plugin = plugins[0]
+    plugin = manifest[0]
     versions = plugin.get("versions", [])
 
     cleaned = []
@@ -68,7 +64,7 @@ def main() -> None:
     )
 
     plugin["versions"] = cleaned
-    manifest["plugins"] = plugins
+    manifest[0] = plugin
 
     with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2)
