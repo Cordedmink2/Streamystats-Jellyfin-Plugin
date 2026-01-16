@@ -12,11 +12,11 @@ public sealed class StreamystatsRecommendationIdsData
     /// Gets movie IDs.
     /// </summary>
     [JsonPropertyName("movies")]
-    public Collection<string> Movies { get; } = new();
+    public Collection<string> Movies { get; init; } = new();
 
     /// <summary>
     /// Gets series IDs.
     /// </summary>
     [JsonPropertyName("series")]
-    public Collection<string> Series { get; } = new();
+    public Collection<string> Series { get; init; } = new();
 }
