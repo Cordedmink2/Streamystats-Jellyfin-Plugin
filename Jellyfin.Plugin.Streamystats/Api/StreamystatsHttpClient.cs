@@ -43,6 +43,8 @@ public sealed class StreamystatsHttpClient
             if (!string.IsNullOrWhiteSpace(token))
             {
                 request.Headers.Add("Authorization", $"MediaBrowser Token=\"{token}\"");
+                request.Headers.Add("X-Emby-Token", token);
+                request.Headers.Add("X-MediaBrowser-Token", token);
             }
 
             using var response = await client.SendAsync(request, cancellationToken).ConfigureAwait(false);

@@ -17,6 +17,7 @@ public class PluginConfiguration : BasePluginConfiguration
         StreamystatsMovieRecommendations = true;
         StreamystatsSeriesRecommendations = true;
         StreamystatsPromotedWatchlists = false;
+        StreamystatsSectionOrder = "Movies,Series,Watchlists";
     }
 
     /// <summary>
@@ -43,4 +44,9 @@ public class PluginConfiguration : BasePluginConfiguration
     /// Gets or sets a value indicating whether promoted watchlists are enabled.
     /// </summary>
     public bool StreamystatsPromotedWatchlists { get; set; }
+
+    /// <summary>
+    /// Gets or sets the comma-separated order for Streamystats sections.
+    /// </summary>
+    public string StreamystatsSectionOrder { get; set; }
 }
