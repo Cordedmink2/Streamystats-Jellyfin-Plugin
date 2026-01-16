@@ -6,6 +6,9 @@ on:
       - published
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build and package
@@ -34,7 +37,9 @@ jobs:
       - name: Upload release asset
         uses: softprops/action-gh-release@v2
         with:
-          files: artifacts/Streamystats-${{ github.event.release.tag_name }}.zip
+          files: |
+            artifacts/Streamystats-${{ github.event.release.tag_name }}.zip
+            manifest.json
 
       - name: Update manifest
         run: |
@@ -47,3 +52,11 @@ jobs:
         with:
           name: manifest
           path: manifest.json
+
+      - name: Commit manifest
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add manifest.json
+          git commit -m "Update manifest for ${{ github.event.release.tag_name }}" || exit 0
+          git push
