@@ -1,18 +1,23 @@
 {
-  "category": "General",
-  "description": "Integrates Streamystats with Jellyfin Web UI to show recommendations and promoted watchlists.",
-  "guid": "c9893499-ca27-4313-89ab-7e2a67e3e5ae",
-  "name": "Streamystats",
-  "overview": "Streamystats recommendations and promoted watchlists in Jellyfin.",
-  "owner": "Cordedmink2",
-  "versions": [
+  "version": 1,
+  "plugins": [
     {
-      "checksum": "",
-      "changelog": "Initial Streamystats integration for Jellyfin Web UI.",
-      "targetAbi": "10.11.5.0",
-      "sourceUrl": "",
-      "timestamp": "",
-      "version": "0.1.0.0"
+      "category": "General",
+      "description": "Integrates Streamystats with Jellyfin Web UI to show recommendations and promoted watchlists.",
+      "guid": "c9893499-ca27-4313-89ab-7e2a67e3e5ae",
+      "name": "Streamystats",
+      "overview": "Streamystats recommendations and promoted watchlists in Jellyfin.",
+      "owner": "Cordedmink2",
+      "versions": [
+        {
+          "checksum": "",
+          "changelog": "Initial Streamystats integration for Jellyfin Web UI.",
+          "targetAbi": "10.11.5.0",
+          "sourceUrl": "",
+          "timestamp": "",
+          "version": "0.1.0.0"
+        }
+      ]
     }
   ]
 }

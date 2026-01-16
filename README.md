@@ -2,6 +2,15 @@
 
 Streamystats integration for Jellyfin Web UI. Adds Streamystats-powered recommendations and promoted watchlists to the Jellyfin home screen using Jellyfin-authenticated Streamystats API calls.
 
+## Install (standard Jellyfin plugin repository)
+
+1. In Jellyfin Web UI, go to **Dashboard → Plugins → Repositories**.
+2. Click **Add Repository** and set:
+   - **Repository URL**: `https://github.com/Cordedmink2/Streamystats-Jellyfin-Plugin/releases/latest/download/manifest.json`
+   - **Name**: `Streamystats`
+3. Save, then go to **Catalog** and install **Streamystats**.
+4. Restart Jellyfin.
+
 ## Features
 
 - Movie and series recommendations powered by Streamystats
@@ -13,18 +22,6 @@ Streamystats integration for Jellyfin Web UI. Adds Streamystats-powered recommen
 
 - Jellyfin Server 10.11.5
 - Streamystats instance with external API enabled
-
-## Install
-
-1. Build the plugin:
-   ```bash
-   dotnet build Jellyfin.Plugin.Streamystats.sln
-   ```
-2. Copy the plugin output to your Jellyfin plugins directory:
-   ```bash
-   cp -r Jellyfin.Plugin.Streamystats/bin/Debug/net9.0/ /path/to/jellyfin/plugins/Streamystats/
-   ```
-3. Restart Jellyfin.
 
 ## Configure
 
@@ -44,8 +41,8 @@ Streamystats integration for Jellyfin Web UI. Adds Streamystats-powered recommen
 ## Release & manifest
 
 - Plugin archive name: `Streamystats-<version>.zip`
-- Manifest file: `manifest.json`
-- Release workflow updates the manifest with checksum + source URL
+- Manifest file: `manifest.json` (Jellyfin repo format)
+- Release workflow attaches the zip + manifest to the GitHub release.
 
 ## Development
 
@@ -60,6 +57,11 @@ scripts/run_integration.sh
 ```
 
 ## Troubleshooting
+
+### Plugin not showing in catalog
+- Make sure you added the repository URL above exactly.
+- Verify the release contains `manifest.json` and `Streamystats-<version>.zip`.
+- Jellyfin caches catalog results; restart Jellyfin or click **Refresh** in the catalog.
 
 ### No recommendations show up
 - Verify Streamystats URL is reachable from your Jellyfin server.
