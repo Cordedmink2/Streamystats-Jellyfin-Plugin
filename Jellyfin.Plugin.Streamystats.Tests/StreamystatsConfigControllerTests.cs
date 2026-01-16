@@ -13,7 +13,8 @@ public class StreamystatsConfigControllerTests
     {
         var applicationPaths = Substitute.For<IApplicationPaths>();
         var serializer = Substitute.For<IXmlSerializer>();
-        _ = new Jellyfin.Plugin.Streamystats.Plugin(applicationPaths, serializer);
+        var configurationManager = Substitute.For<IConfigurationManager>();
+        _ = new Jellyfin.Plugin.Streamystats.Plugin(applicationPaths, serializer, configurationManager);
 
         var logger = Substitute.For<ILogger<StreamystatsConfigController>>();
         var controller = new StreamystatsConfigController(logger);

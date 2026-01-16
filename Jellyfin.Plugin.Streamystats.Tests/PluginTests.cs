@@ -12,8 +12,9 @@ public class PluginTests
     {
         var applicationPaths = Substitute.For<IApplicationPaths>();
         var serializer = Substitute.For<IXmlSerializer>();
+        var configurationManager = Substitute.For<IConfigurationManager>();
 
-        var plugin = new Jellyfin.Plugin.Streamystats.Plugin(applicationPaths, serializer);
+        var plugin = new Jellyfin.Plugin.Streamystats.Plugin(applicationPaths, serializer, configurationManager);
 
         Assert.Equal("Streamystats", plugin.Name);
         Assert.Equal(Guid.Parse("c9893499-ca27-4313-89ab-7e2a67e3e5ae"), plugin.Id);
